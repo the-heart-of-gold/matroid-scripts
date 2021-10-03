@@ -21,20 +21,15 @@ class BearerAuth(requests.auth.AuthBase):
 
 def get_detectors():
     response = requests.get(f'{base_url}detectors', auth=BearerAuth(bearer_token))
-    #print(response.url)
-    #print(response.json())
 
 
 def classify_image(image):
     files = {'file': open(f'{test_data_dir}{image}','rb')}
-    #print(f'{base_url}{detector_endpoint}classify_image')
     response = requests.post(f'{base_url}{detector_endpoint}classify_image',
             auth=BearerAuth(bearer_token),
             files=files,
             verify=True,
             )
-    print(response.url)
-    print(response.text)
 
 
 def main():
