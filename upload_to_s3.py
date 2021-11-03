@@ -45,18 +45,9 @@ def upload_file(file_name, bucket, object_name=None):
     s3_client = boto3.client(
             service_name='s3',
             region_name='eu-west-2',
-            aws_access_key_id='AKIA2ZUM4EHIJH2IRX5Y',
-            aws_secret_access_key='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',
+            aws_access_key_id='MY_ACCESS_KEY_ID',
+            aws_secret_access_key='MY_SECRET_ACCESS_KEY',
             )
-
-    '''
-    s3_client = boto3.client(
-            service_name='s3',
-            region_name='eu-west-2',
-            aws_access_key_id='AKIA2ZUM4EHIPO76AOXI',
-            aws_secret_access_key='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',
-            )
-    '''
 
     try:
         response = s3_client.upload_file(file_name, bucket, object_name, Callback=ProgressPercentage(file_name))
