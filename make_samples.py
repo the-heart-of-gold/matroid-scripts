@@ -110,7 +110,7 @@ def zip_negatives(src_path, zip_filepath, labels, df):
     :rtype: 
     '''
     for label in labels:
-        with zipfile.ZipFile(f'{zip_filepath}not_{label}.zip', 'w', zipfile.ZIP_STORED) as ziph:
+        with zipfile.ZipFile(zip_filepath, 'w', zipfile.ZIP_STORED) as ziph:
             for root, dirs, files in os.walk(src_path):
                 for index, row in df.iterrows():
                     if row[2] == label and row[1] == -1:  # only write out annotations for absent (-1) objects.
@@ -122,8 +122,8 @@ def main():
     assert(len(sys.argv) == 6), \
         'Usage: python sample_data.py [TRAIN_OR_TEST] [SOURCE_DIR] [DEST_DIR] ["COMMA,SEPARATED,LABELS"] [SAMPLE_SIZE]'
     train_or_test = sys.argv[1]
-    assert(train_or_test.lower() == 'train' | train_or_test == 'test'), \
-            'Must specify either 'train' or 'test' as sample type.'
+    assert(train_or_test.lower() == 'train' or train_or_test == 'test'), \
+            'Must specify either "train" or "test" as sample type.'
     src_dir = sys.argv[2]+'/'
     dest_dir = sys.argv[3]+'/'
     labels = sys.argv[4].split(',')
@@ -161,7 +161,7 @@ def main():
     ##
     ## Part 2: Generate negative sample for each label.
     ##
-    zip_negatives(f'{src_dir}JPEGImages/', f'{dest_dir}', labels, sample_df)
+    zip_negatives(f'{src_dir}JPEGImages/', f'{dest_dir}not_{annot_labels}{train_or_test}.zip', labels, sample_df)
 
     '''
         train_df = load_dataframe(f'{data_dir}{label}_train.txt',
