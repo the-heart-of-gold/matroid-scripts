@@ -50,6 +50,7 @@ def sample_data(file_path:str, columns, n=5000, delimiter=' ',):
     :return: the sampled DataFrame
     :rtype: pandas.DataFrame
     '''
+    print(file_path)
     if os.path.isfile(file_path):
         df = pd.read_csv(file_path, names=columns, sep=delimiter)
         # 'is_present' column is 1 if object is present, -1 if absent.
@@ -120,7 +121,7 @@ def zip_negatives(src_path, zip_filepath, labels, df):
 
 def main():
     assert(len(sys.argv) == 6), \
-        'Usage: python sample_data.py [TRAIN_OR_TEST] [SOURCE_DIR] [DEST_DIR] ["COMMA,SEPARATED,LABELS"] [SAMPLE_SIZE]'
+        'Usage: python make_sample.py [TRAIN_OR_TEST] [SOURCE_DIR] [DEST_DIR] ["COMMA,SEPARATED,LABELS"] [SAMPLE_SIZE]'
     train_or_test = sys.argv[1]
     assert(train_or_test.lower() == 'train' or train_or_test == 'test'), \
             'Must specify either "train" or "test" as sample type.'
